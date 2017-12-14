@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from PublicIP import IP
 app = Flask(__name__)
 
@@ -23,11 +23,21 @@ def serve_controller():
 	#code for serving the html page for controller
 	return "not yet implemented"
 
-@app.route("/api", methods=["POST"])
-def post_message():
-	#code for handling a post request
-	#state = request.getString() <-- pseudocode
-	return "not yet implemented"
+@app.route("/api", methods=["GET", "POST"])
+def request_api():
+	global state
+	if request.method == "POST":
+		state = request.get_data()
+		return "HTTP 200: successful", 200
+	elif request.method == "GET":
+		return state, 200
+
+def post_api(request):
+	print(request.data)
+	return request.data
+
+def get_api(request):
+	return state
 
 if __name__ == "__main__":
 	print IP()
