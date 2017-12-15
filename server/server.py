@@ -1,8 +1,9 @@
 from flask import Flask, request
+from flask_sse import sse
 from PublicIP import IP
-app = Flask(__name__)
 
-state = "none"
+app = Flask(__name__)
+app.register_blueprint(sse, url_prefix='/sse')
 
 @app.route("/")
 def hello():
@@ -27,18 +28,11 @@ def serve_controller():
 def request_api():
 	global state
 	if request.method == "POST":
-		state = request.get_data()
+		sse.publish({"message": request.get_data()}, type="state")
 		return "HTTP 200: successful", 200
-	elif request.method == "GET":
-		return state, 200
-
-def post_api(request):
-	print(request.data)
-	return request.data
-
-def get_api(request):
-	return state
 
 if __name__ == "__main__":
 	print IP()
-	app.run(IP(),5000)
+
+app.run(IP(), 80)
+exit()
