@@ -1,5 +1,81 @@
 <html>
 <title>SmartNotch Notch</title>
+<style>
+#Container {
+	width:400px;
+	height: 400px;
+	position: relative;
+	background: #d3d3d3;
+}
+#Animation {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-color: green;
+}
+#Animation2 {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-color: red;
+}
+</style>
 <body>
 <p> Notch Template </p>
+<p>
+<button onclick="scenarioOne()">Move</button> 
+</p>
+<div id="Container">
+	<div id="Animation"></div>
+	<div id="Animation2"></div>
+</div>
+
+
+
+<script>
+
+
+function scenarioOne() {
+console.log('Starting:');
+	var elem_green = document.getElementById("Animation");
+	var elem_red = document.getElementById("Animation2");
+	move(175,350,1000, elem_green);
+	setTimeout(function(){move(175,175,500,elem_green);}, 1000);
+	setTimeout(function(){move(350,175,500,elem_green);}, 1500);
+	setTimeout(function(){move(350,0,500,elem_green);}, 2000);
+	setTimeout(function(){move(0,0,1000,elem_green);}, 2500);
+
+	setTimeout(function(){move(0,350,1000,elem_red);}, 1000);
+}
+
+function move(goal_top, goal_left, time, elem) {
+
+    var top = elem.offsetTop;
+    var left = elem.offsetLeft;
+
+console.log('Move Called: ' + top + ' ' + left + ' ' + goal_top + ' ' +goal_left+ ' ' +time);
+
+    var step_size = 10;
+    var step_top;
+    var step_left;
+    step_top = (goal_top - top)/(time/step_size);
+    step_left = (goal_left - left)/(time/step_size);
+console.log('step_left: '+ step_left);
+console.log('step_top: '+ step_top);
+    var id = setInterval(frame, step_size);
+    function frame() {
+        if (time == 0) {
+            clearInterval(id);
+	    
+        } else {
+		top = top + step_top;
+		left = left + step_left;
+		time = time - step_size;
+		elem.style.top = top + 'px';
+		elem.style.left = left + 'px';		
+        }
+    }
+}
+</script>
+</body>
 </html>
