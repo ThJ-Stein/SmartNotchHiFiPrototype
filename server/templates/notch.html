@@ -23,7 +23,7 @@
 <body>
 <p> Notch Template </p>
 <p>
-<button onclick="scenarioOne()">Move</button> 
+<button onclick="scenarioOne()">Scenario One</button> <button onclick="scenarioTwo()">Scenario Two</button>
 </p>
 <div id="Container">
 	<div id="Animation"></div>
@@ -33,19 +33,29 @@
 
 
 <script>
-
+var elem_green = document.getElementById("Animation");
+var elem_red = document.getElementById("Animation2");
 
 function scenarioOne() {
 console.log('Starting:');
-	var elem_green = document.getElementById("Animation");
-	var elem_red = document.getElementById("Animation2");
 	move(175,350,1000, elem_green);
 	setTimeout(function(){move(175,175,500,elem_green);}, 1000);
 	setTimeout(function(){move(350,175,500,elem_green);}, 1500);
 	setTimeout(function(){move(350,0,500,elem_green);}, 2000);
-	setTimeout(function(){move(0,0,1000,elem_green);}, 2500);
 
 	setTimeout(function(){move(0,350,1000,elem_red);}, 1000);
+
+	setTimeout(function(){move(0,0,100,elem_green);}, 3500);
+	setTimeout(function(){move(0,0,100,elem_red);}, 3500);
+}
+
+function scenarioTwo() {
+console.log('Starting:');
+	setTimeout(function(){move(350,0,1000,elem_green);}, 0);
+	setTimeout(function(){move(0,350,1000,elem_red);}, 0);
+
+	setTimeout(function(){move(0,0,1000,elem_green);}, 1000);
+	setTimeout(function(){move(0,0,1000,elem_red);}, 1000);
 }
 
 function move(goal_top, goal_left, time, elem) {
