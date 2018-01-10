@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta charset="UTF-8"> 
 <title>SmartNotch Notch</title>
 <style>
 #Container {
@@ -28,17 +29,16 @@
 <p> Notch Template </p>
 <p>
 <button onclick="scenarioOne()">Scenario One</button>
-<button onclick="scenarioTwo()">Scenario Two</button>
-<button onclick="scenarioThree()">Scenario Three</button>
 </p>
 <div id="Container">
 	<div id="Animation"></div>
 	<div id="Animation2"></div>
 </div>
 <script>
- var div = $("#Animation");
- function runIt() {
-  div
+ var greenbox = $("#Animation");
+ var redbox = $("#Animation2");
+ function scenarioOne() {
+  greenbox
     .show( "slow" )
     .animate({ left: "+=200" }, 2000 )
     .slideToggle( 1000 )
@@ -46,9 +46,14 @@
     .animate({ left: "-=200" }, 1500 )
     .hide( "slow" )
     .show( 1200 )
-    .slideUp( "normal", runIt );
+    .slideUp( "normal" )
+
+   redbox
+    .show("slow")
+    .animate({ top: "+=300"}, 2000)
+    .animate({ top: "-=300"}, 2000)
+    .hide("slow");
  }
- runIt();
 </script>
 </body>
 </html>
