@@ -1,5 +1,54 @@
 <html>
+<head>
 <title>SmartNotch Notch</title>
+<style>
+#Container {
+	width:900px;
+	height: 800px;
+	position: relative;
+	background: #d3d3d3;
+}
+#Animation {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-color: green;
+}
+#Animation2 {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-color: red;
+	display: none;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
 <body>
 <p> Notch Template </p>
+<p>
+<button onclick="scenarioOne()">Scenario One</button>
+<button onclick="scenarioTwo()">Scenario Two</button>
+<button onclick="scenarioThree()">Scenario Three</button>
+</p>
+<div id="Container">
+	<div id="Animation"></div>
+	<div id="Animation2"></div>
+</div>
+<script>
+ var div = $("#Animation");
+ function runIt() {
+  div
+    .show( "slow" )
+    .animate({ left: "+=200" }, 2000 )
+    .slideToggle( 1000 )
+    .slideToggle( "fast" )
+    .animate({ left: "-=200" }, 1500 )
+    .hide( "slow" )
+    .show( 1200 )
+    .slideUp( "normal", runIt );
+ }
+ runIt();
+</script>
+</body>
 </html>
