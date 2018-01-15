@@ -15,10 +15,10 @@
 	background-color: #f3f3f3;
 }
 #Car {
-	width: 10%;
-	height: 15%;
-	top: 0%;
-	left: 43%;
+	width: 12%;
+	height: 12%;
+	top: 15%;
+	left: 42%;
 	position: absolute;	
 	background-image: url('../images/car front.svg');
 	background-repeat: no-repeat;
@@ -184,6 +184,9 @@ function enter() {
 </div>
 </div>
 <script>
+$( document ).ready(function() {
+  scenarioThree("nozc");
+});
  var car = $("#Car");
  var carElem = document.getElementById("Car");
  var pedestrianM = $("#Pedestrian1");
@@ -216,52 +219,133 @@ function enter() {
   countdown1right: "url('../images/car inpatient 1 right.svg')",
   countdown1leftright: "url('../images/car inpatient 1 both sides.svg')",
   countdown1mid: "url('../images/car inpatient 1 forward.svg')",
-  carno: "url('../images/car done waiting.svg')"};
- function carApproach(callback) {
+  carno: "url('../images/car done waiting.svg')",
+  zleft: "url('../images/car pedestrian left(no zc).svg')", 
+  zright: "url('../images/car pedestrian right(no zc).svg')", 
+  zmid: "url('../images/car pedestrian front(no zc).svg')",
+  zleftright: "url('../images/car pedestrian both(no zc).svg')", 
+  zcountdown5left: "url('../images/car inpatient 5 left(no zc).svg')",
+  zcountdown5right: "url('../images/car inpatient 5 right(no zc).svg')",
+  zcountdown5leftright: "url('../images/car inpatient 5 both sides(no zc).svg')",
+  zcountdown5mid: "url('../images/car inpatient 5 forward(no zc).svg')",
+  zcountdown4left: "url('../images/car inpatient 4 left(no zc).svg')",
+  zcountdown4right: "url('../images/car inpatient 4 right(no zc).svg')",
+  zcountdown4leftright: "url('../images/car inpatient 4 both sides(no zc).svg')",
+  zcountdown4mid: "url('../images/car inpatient 4 forward(no zc).svg')",
+  zcountdown3left: "url('../images/car inpatient 3 left(no zc).svg')",
+  zcountdown3right: "url('../images/car inpatient 3 right(no zc).svg')",
+  zcountdown3leftright: "url('../images/car inpatient 3 both sides(no zc).svg')",
+  zcountdown3mid: "url('../images/car inpatient 3 forward(no zc).svg')",
+  zcountdown2left: "url('../images/car inpatient 2 left(no zc).svg')",
+  zcountdown2right: "url('../images/car inpatient 2 right(no zc).svg')",
+  zcountdown2leftright: "url('../images/car inpatient 2 both sides(no zc).svg')",
+  zcountdown2mid: "url('../images/car inpatient 2 forward(no zc).svg')",
+  zcountdown1left: "url('../images/car inpatient 1 left(no zc).svg')",
+  zcountdown1right: "url('../images/car inpatient 1 right(no zc).svg')",
+  zcountdown1leftright: "url('../images/car inpatient 1 both sides(no zc).svg')",
+  zcountdown1mid: "url('../images/car inpatient 1 forward(no zc).svg')"};
+  
+ function carApproach(callback, mode) {
   carElem.style.display = "inline";
-  car.animate({width: "30%", height: "30%", top: "50%", left: "30%"}, 4000, callback);
+  car.animate({width: "30%", height: "30%", top: "50%", left: "30%"}, 4000, function(){ callback(mode); });
 }
- function carChangeLeft() {
-  carElem.style.backgroundImage = carImages.left;
+ function carChangeLeft(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zleft;
+ } else {
+   carElem.style.backgroundImage = carImages.left;
+ }
 }
- function carChangeMid() {
-  carElem.style.backgroundImage = carImages.mid;
+ function carChangeMid(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zmid;
+ } else {
+   carElem.style.backgroundImage = carImages.mid;
+ }
 }
- function carChangeRight() {
-  carElem.style.backgroundImage = carImages.right;
+ function carChangeRight(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zright;
+ } else {
+   carElem.style.backgroundImage = carImages.right;
+ }
 }
- function carChangeBoth() {
-  carElem.style.backgroundImage = carImages.leftright;
+ function carChangeBoth(mode) {  
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zleftright;
+ } else {
+   carElem.style.backgroundImage = carImages.leftright;
+ }
 }
- function carChangeFive() {
-  carElem.style.backgroundImage = carImages.countdown5left;
+ function carChangeFive(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown5left;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown5left;
+ }
 }
- function carChangeFiveRight() {
-  carElem.style.backgroundImage = carImages.countdown5right;
+ function carChangeFiveRight(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown5right;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown5right;
+ }
 }
- function carChangeFour() {
-  carElem.style.backgroundImage = carImages.countdown4left;
+ function carChangeFour(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown4left;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown4left;
+ }
 }
- function carChangeFourRight() {
-  carElem.style.backgroundImage = carImages.countdown4right;
+ function carChangeFourRight(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown4right;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown4right;
+ }
 }
- function carChangeThree() {
-  carElem.style.backgroundImage = carImages.countdown3left;
+ function carChangeThree(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown3left;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown3left;
+ }
 }
- function carChangeThreeRight() {
-  carElem.style.backgroundImage = carImages.countdown3right;
+ function carChangeThreeRight(mode) {  
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown3right;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown3right;
+ }
 }
- function carChangeTwo() {
-  carElem.style.backgroundImage = carImages.countdown2left;
+ function carChangeTwo(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown2left;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown2left;
+ }
 }
- function carChangeTwoRight() {
-  carElem.style.backgroundImage = carImages.countdown2right;
+ function carChangeTwoRight(mode) {
+  if (mode === "nozc") {
+  carElem.style.backgroundImage = carImages.zcountdown2right;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown2right;
+ }
 }
- function carChangeOne() {
-  carElem.style.backgroundImage = carImages.countdown1left;
+ function carChangeOne(mode) {
+  if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown1left;
+ } else {
+   carElem.style.backgroundImage = carImages.countdown1left;
+ }
 }
- function carChangeOneRight() {
-  carElem.style.backgroundImage = carImages.countdown1right;
+ function carChangeOneRight(mode) {  
+  if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown1right;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown1right;
+ }
 }
  function carChangeNO() {
   carElem.style.backgroundImage = carImages.carno;
@@ -269,29 +353,29 @@ function enter() {
  function carChangeNormal() {
   carElem.style.backgroundImage = carImages.normal;
 }
- function carWait(side) {
+ function carWait(side, mode) {
  car
-  .animate({opacity: "0.99"},5000, function(){carCountDownAll(side);})
+  .animate({opacity: "0.99"},5000, function(){carCountDownAll(side, mode);})
 }
- function carCountDownAll(side){
+ function carCountDownAll(side, mode){
   if (side === "right") {
-  carChangeFiveRight();
+  carChangeFiveRight(mode);
    car
-  .animate({opacity: "1"}, 1000, carChangeFourRight)
-  .animate({opacity: "0.99"}, 1000, carChangeThreeRight)
-  .animate({opacity: "1"}, 1000, carChangeTwoRight)
-  .animate({opacity: "0.99"}, 1000, carChangeOneRight)
+  .animate({opacity: "1"}, 1000, function() {carChangeFourRight(mode);})
+  .animate({opacity: "0.99"}, 1000, function() {carChangeThreeRight(mode);})
+  .animate({opacity: "1"}, 1000, function() {carChangeTwoRight(mode);})
+  .animate({opacity: "0.99"}, 1000, function() {carChangeOneRight(mode);})
   .animate({opacity: "1"}, 1000, carChangeNO)
   .animate({opacity: "0.99"}, 2000, carChangeNormal)
   .animate({top: "200%", left: "20%"}, 5000);
 
   } else {
-  carChangeFive();
+  carChangeFive(mode);
   car
-  .animate({opacity: "1"}, 1000, carChangeFour)
-  .animate({opacity: "0.99"}, 1000, carChangeThree)
-  .animate({opacity: "1"}, 1000, carChangeTwo)
-  .animate({opacity: "0.99"}, 1000, carChangeOne)
+  .animate({opacity: "1"}, 1000, function() {carChangeFour(mode);})
+  .animate({opacity: "0.99"}, 1000, function() {carChangeThree(mode);})
+  .animate({opacity: "1"}, 1000, function() {carChangeTwo(mode);})
+  .animate({opacity: "0.99"}, 1000,  function() {carChangeOne(mode);})
   .animate({opacity: "1"}, 1000, carChangeNO)
   .animate({opacity: "0.99"}, 2000, carChangeNormal)
   .animate({top: "200%", left: "20%"}, 5000);
@@ -303,8 +387,13 @@ function enter() {
  function showPedestrianF() {
   pedestrianFElem.style.display = "inline";
 }
- function userQuery(doIfYes, doIfNo) {
-// TODO: Open Modal Y/N. Iets van modal(function doIfYes, function doIfNo)
+ function userQuery() {
+  // TODO: Open Modal Y/N. Iets van modal(function doIfYes, function doIfNo)
+  swipeLeft();
+}
+ function scenarioFour(){
+  showPedestrianM();
+  carApproach(userQuery);
 }
  function scenarioOne() {
   showPedestrianM();
@@ -330,21 +419,21 @@ function enter() {
    .animate({opacity: "1"},1000, carChangeBoth)
    .animate({opacity: "0.99"}, 1, carCountDownAll);
 }
- function scenarioThree() {
+ function scenarioThree(mode) {
   showPedestrianM();
-  carApproach(scenarioThreeDelayOne);
+  carApproach(scenarioThreeDelayOne, mode);
 }
- function scenarioThreeDelayOne() {
-  carChangeLeft();
-  carWait(carCountDownAll);
+ function scenarioThreeDelayOne(mode) {
+  carChangeLeft(mode);
+  carWait(carCountDownAll, mode);
 }
  function reset() {
   carElem.style.backgroundImage = carImages.normal;
-  carElem.style.width = "10%";
-  carElem.style.height = "15%";
-  carElem.style.top = "0%";
-  carElem.style.left = "43%";
-  carElem.style.display = "none"
+  carElem.style.width = "12%";
+  carElem.style.height = "12%";
+  carElem.style.top = "15%";
+  carElem.style.left = "42%";
+  carElem.style.display = "none";
 
   pedestrianMElem.style.width = "10%";
   pedestrianMElem.style.height = "10%";
