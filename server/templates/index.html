@@ -1,9 +1,304 @@
 <html>
-<title>Test Page</title>
-<head></head>
+<head>
+<meta charset="UTF-8"> 
+<title>SmartNotch Notch</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<style>
+#Container {	
+	width: 100%;
+	height:100%;
+	position: relative;
+	background-image: url('../images/straat.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-color: #f3f3f3;
+}
+#Car {
+	width: 10%;
+	height: 15%;
+	top: 0%;
+	left: 43%;
+	position: absolute;	
+	background-image: url('../images/car front.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	display: none;
+}
+#Pedestrian1 {
+	width: 10%;
+	height: 10%;
+	top: 65%;
+	left: 25%;
+	position: absolute;
+	background-image: url('../images/pedestrian male.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	display: none;
+}
+#Pedestrian2 {
+	width:  10%;
+	height: 10%;
+	top:    67%;
+	left:   65%;
+	position: absolute;
+	background-image: url('../images/pedestrian female.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	display: none;
+}
+@keyframes SwipeRight {
+	from {left: 0px; opacity: 1;}
+	to {left: 1000px; opacity: 0;}
+}
+
+.SwipeRightClass {
+	animation-name: SwipeRight;
+	animation-duration: .5s;
+}
+
+@keyframes SwipeLeft {
+	from {left: 0px; opacity: 1;}
+	to {left: -1000px; opacity: 0;}
+}
+
+.SwipeLeftClass {
+	animation-name: SwipeLeft;
+	animation-duration: .5s;
+}
+
+@keyframes Enter {
+	from {top: 200px; opacity: 0;}
+	to {top: 0px; opacity: 1;}
+}
+
+.EnterClass {
+	animation-name: Enter;
+	animation-duration: .5s;
+}
+
+#SwipeModal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	animation-fill-mode: forwards;
+}
+
+#SceneModal {
+	position: relative;
+	border-style: outset;
+	border-radius: 15px;
+	box-shadow: 10px 10px 5px gray;
+	width: 75%;
+	margin: auto;
+	overflow: hidden;
+}
+</style>
+<script>
+function swipeLeft() {
+	$("#SwipeModal").removeClass("SwipeLeftClass SwipeRightClass EnterClass")
+		.addClass("SwipeLeftClass");
+}
+
+function swipeRight() {
+	$("#SwipeModal").removeClass("SwipeLeftClass SwipeRightClass EnterClass")
+		.addClass("SwipeRightClass");
+}
+
+function enter() {
+	$("#SwipeModal").removeClass("SwipeLeftClass SwipeRightClass EnterClass")
+		.addClass("EnterClass");
+}
+</script>
+</head>
 <body>
-Test page bitches!!!
-<p> TEST PAGE </p>
+<div id="SwipeModal">
+<div id="SceneModal">
+<div id="Container">
+	<div id="Car"></div>
+	<div id="Pedestrian1"></div>
+	<div id="Pedestrian2"></div>
+</div>
+</div>
+</div>
+<script>
+ var car = $("#Car");
+ var carElem = document.getElementById("Car");
+ var pedestrianM = $("#Pedestrian1");
+ var pedestrianMElem = document.getElementById("Pedestrian1");
+ var pedestrianF = $("#Pedestrian2");
+ var pedestrianFElem = document.getElementById("Pedestrian2");
+ var carImages = {
+  left: "url('../images/car front ready for pedestrian from the left.svg')", 
+  right: "url('../images/car front ready for pedestrian from the right.svg')", 
+  mid: "url('../images/car front ready for pedestrian from the front.svg')",
+  leftright: "url('../images/car front ready for pedestrian from both sides.svg')", 
+  normal: "url('../images/car front.svg')",
+  countdown5left: "url('../images/car inpatient 5 left.svg')",
+  countdown5right: "url('../images/car inpatient 5 right.svg')",
+  countdown5leftright: "url('../images/car inpatient 5 both sides.svg')",
+  countdown5mid: "url('../images/car inpatient 5 forward.svg')",
+  countdown4left: "url('../images/car inpatient 4 left.svg')",
+  countdown4right: "url('../images/car inpatient 4 right.svg')",
+  countdown4leftright: "url('../images/car inpatient 4 both sides.svg')",
+  countdown4mid: "url('../images/car inpatient 4 forward.svg')",
+  countdown3left: "url('../images/car inpatient 3 left.svg')",
+  countdown3right: "url('../images/car inpatient 3 right.svg')",
+  countdown3leftright: "url('../images/car inpatient 3 both sides.svg')",
+  countdown3mid: "url('../images/car inpatient 3 forward.svg')",
+  countdown2left: "url('../images/car inpatient 2 left.svg')",
+  countdown2right: "url('../images/car inpatient 2 right.svg')",
+  countdown2leftright: "url('../images/car inpatient 2 both sides.svg')",
+  countdown2mid: "url('../images/car inpatient 2 forward.svg')",
+  countdown1left: "url('../images/car inpatient 1 left.svg')",
+  countdown1right: "url('../images/car inpatient 1 right.svg')",
+  countdown1leftright: "url('../images/car inpatient 1 both sides.svg')",
+  countdown1mid: "url('../images/car inpatient 1 forward.svg')",
+  carno: "url('../images/car done waiting.svg')"};
+ function carApproach(callback) {
+  carElem.style.display = "inline";
+  car.animate({width: "30%", height: "30%", top: "50%", left: "30%"}, 4000, callback);
+}
+ function carChangeLeft() {
+  carElem.style.backgroundImage = carImages.left;
+}
+ function carChangeMid() {
+  carElem.style.backgroundImage = carImages.mid;
+}
+ function carChangeRight() {
+  carElem.style.backgroundImage = carImages.right;
+}
+ function carChangeBoth() {
+  carElem.style.backgroundImage = carImages.leftright;
+}
+ function carChangeFive() {
+  carElem.style.backgroundImage = carImages.countdown5left;
+}
+ function carChangeFiveRight() {
+  carElem.style.backgroundImage = carImages.countdown5right;
+}
+ function carChangeFour() {
+  carElem.style.backgroundImage = carImages.countdown4left;
+}
+ function carChangeFourRight() {
+  carElem.style.backgroundImage = carImages.countdown4right;
+}
+ function carChangeThree() {
+  carElem.style.backgroundImage = carImages.countdown3left;
+}
+ function carChangeThreeRight() {
+  carElem.style.backgroundImage = carImages.countdown3right;
+}
+ function carChangeTwo() {
+  carElem.style.backgroundImage = carImages.countdown2left;
+}
+ function carChangeTwoRight() {
+  carElem.style.backgroundImage = carImages.countdown2right;
+}
+ function carChangeOne() {
+  carElem.style.backgroundImage = carImages.countdown1left;
+}
+ function carChangeOneRight() {
+  carElem.style.backgroundImage = carImages.countdown1right;
+}
+ function carChangeNO() {
+  carElem.style.backgroundImage = carImages.carno;
+}
+ function carChangeNormal() {
+  carElem.style.backgroundImage = carImages.normal;
+}
+ function carWait(side) {
+ car
+  .animate({opacity: "0.99"},5000, function(){carCountDownAll(side);})
+}
+ function carCountDownAll(side){
+  if (side === "right") {
+  carChangeFiveRight();
+   car
+  .animate({opacity: "1"}, 1000, carChangeFourRight)
+  .animate({opacity: "0.99"}, 1000, carChangeThreeRight)
+  .animate({opacity: "1"}, 1000, carChangeTwoRight)
+  .animate({opacity: "0.99"}, 1000, carChangeOneRight)
+  .animate({opacity: "1"}, 1000, carChangeNO)
+  .animate({opacity: "0.99"}, 2000, carChangeNormal)
+  .animate({top: "200%", left: "20%"}, 5000);
+
+  } else {
+  carChangeFive();
+  car
+  .animate({opacity: "1"}, 1000, carChangeFour)
+  .animate({opacity: "0.99"}, 1000, carChangeThree)
+  .animate({opacity: "1"}, 1000, carChangeTwo)
+  .animate({opacity: "0.99"}, 1000, carChangeOne)
+  .animate({opacity: "1"}, 1000, carChangeNO)
+  .animate({opacity: "0.99"}, 2000, carChangeNormal)
+  .animate({top: "200%", left: "20%"}, 5000);
+  }
+}
+ function showPedestrianM() {
+  pedestrianMElem.style.display = "inline";
+}
+ function showPedestrianF() {
+  pedestrianFElem.style.display = "inline";
+}
+ function userQuery(doIfYes, doIfNo) {
+// TODO: Open Modal Y/N. Iets van modal(function doIfYes, function doIfNo)
+}
+ function scenarioOne() {
+  showPedestrianM();
+  carApproach(scenarioOneDelayOne);
+}
+ function scenarioOneDelayOne() {
+  carChangeLeft();
+  car.animate({opacity: "0.99"} ,1500, carChangeMid).animate({opacity: "1"},1000, function(){
+   carChangeRight(); carCountDownAll("right");});
+  pedestrianM.animate({left: "60%"}, 4000);
+}
+ function scenarioTwo() {
+  showPedestrianM();
+  showPedestrianF();
+  carApproach(scenarioTwoDelayOne);
+}
+ function scenarioTwoDelayOne() {
+  carChangeBoth();
+  pedestrianM.animate({left: "60%"},4000);
+  pedestrianF.animate({left: "25%"},3000);
+  car
+   .animate({opacity: "0.99"},1500, carChangeMid)
+   .animate({opacity: "1"},1000, carChangeBoth)
+   .animate({opacity: "0.99"}, 1, carCountDownAll);
+}
+ function scenarioThree() {
+  showPedestrianM();
+  carApproach(scenarioThreeDelayOne);
+}
+ function scenarioThreeDelayOne() {
+  carChangeLeft();
+  carWait(carCountDownAll);
+}
+ function reset() {
+  carElem.style.backgroundImage = carImages.normal;
+  carElem.style.width = "10%";
+  carElem.style.height = "15%";
+  carElem.style.top = "0%";
+  carElem.style.left = "43%";
+  carElem.style.display = "none"
+
+  pedestrianMElem.style.width = "10%";
+  pedestrianMElem.style.height = "10%";
+  pedestrianMElem.style.top = "65%";
+  pedestrianMElem.style.left = "25%";
+  pedestrianMElem.style.display = "none";
+  
+  pedestrianFElem.style.width = "10%";
+  pedestrianFElem.style.height = "10%";
+  pedestrianFElem.style.top = "67%";
+  pedestrianFElem.style.left = "65%";
+  pedestrianFElem.style.display = "none";
+}
+</script>
 </body>
 </html>
-
