@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset="UTF-8"> 
-<title>SmartNotch Notch</title>
+<title>SmartNotch Prototype</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <style>
 #Container {	
@@ -18,7 +18,7 @@
 	width: 12%;
 	height: 12%;
 	top: 15%;
-	left: 42%;
+	left: 41.5%;
 	position: absolute;	
 	background-image: url('../images/car front.svg');
 	background-repeat: no-repeat;
@@ -122,11 +122,17 @@
 function swipeLeft() {
 	$("#SwipeModal").removeClass("SwipeLeftClass SwipeRightClass EnterClass")
 		.addClass("SwipeLeftClass");
+	hidePrompt();
+	reset();
+//TODO: Async GET Request
 }
 
 function swipeRight() {
 	$("#SwipeModal").removeClass("SwipeLeftClass SwipeRightClass EnterClass")
 		.addClass("SwipeRightClass");
+	hidePrompt();
+	reset();
+//TODO: Async GET Request
 }
 
 function enter() {
@@ -139,8 +145,8 @@ function enter() {
 
 <div id="swipePrompt">
 	<h3>Is it safe to cross?</h3> <br />
-	<button id="swipeLeftButton">No</button>
-	<button id="swipeRightButton">Yes</button>
+	<button id="swipeLeftButton" onclick="swipeLeft()">No</button>
+	<button id="swipeRightButton" onclick="swipeRight()">Yes</button>
 </div>
 
 <div id="SwipeModal">
@@ -154,8 +160,12 @@ function enter() {
 </div>
 <script>
 $( document ).ready(function() {
-  scenarioThree("nozc");
-});
+  enter();
+  var options = [scenarioOne, scenarioTwo]
+  var modes = ["", "nozc"];
+//TODO: Asynchronous GET Request to REST API.
+  scenarioOne();
+  });
  var car = $("#Car");
  var carElem = document.getElementById("Car");
  var pedestrianM = $("#Pedestrian1");
@@ -214,9 +224,15 @@ $( document ).ready(function() {
   zcountdown1leftright: "url('../images/car inpatient 1 both sides(no zc).svg')",
   zcountdown1mid: "url('../images/car inpatient 1 forward(no zc).svg')"};
   
- function carApproach(callback, mode) {
+ function carApproach(callbacks, mode) {
   carElem.style.display = "inline";
-  car.animate({width: "30%", height: "30%", top: "50%", left: "30%"}, 4000, function(){ callback(mode); });
+  console.log(callbacks);
+  car.animate({width: "30%", height: "30%", top: "50%", left: "30%"}, 4000, 
+   function(){
+    console.log(callbacks);
+    callbacks.forEach( 
+    function(callback) {
+     callback(mode); });});
 }
  function carChangeLeft(mode) {
   if (mode === "nozc") {
@@ -246,76 +262,84 @@ $( document ).ready(function() {
    carElem.style.backgroundImage = carImages.leftright;
  }
 }
- function carChangeFive(mode) {
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown5left;
- } else {
+ function carCountdown(side, mode, number){
+if (side === "left") { if (number === 5) {  if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown5left;
+  } else {
    carElem.style.backgroundImage = carImages.countdown5left;
- }
-}
- function carChangeFiveRight(mode) {
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown5right;
- } else {
-   carElem.style.backgroundImage = carImages.countdown5right;
- }
-}
- function carChangeFour(mode) {
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown4left;
- } else {
+  } }
+ if (number === 4) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown4left;
+  } else {
    carElem.style.backgroundImage = carImages.countdown4left;
- }
-}
- function carChangeFourRight(mode) {
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown4right;
- } else {
-   carElem.style.backgroundImage = carImages.countdown4right;
- }
-}
- function carChangeThree(mode) {
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown3left;
- } else {
+  } }
+ if (number === 3) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown3left;
+  } else {
    carElem.style.backgroundImage = carImages.countdown3left;
- }
-}
- function carChangeThreeRight(mode) {  
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown3right;
- } else {
-   carElem.style.backgroundImage = carImages.countdown3right;
- }
-}
- function carChangeTwo(mode) {
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown2left;
- } else {
+  } }
+ if (number === 2) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown2left;
+  } else {
    carElem.style.backgroundImage = carImages.countdown2left;
- }
-}
- function carChangeTwoRight(mode) {
-  if (mode === "nozc") {
-  carElem.style.backgroundImage = carImages.zcountdown2right;
- } else {
-   carElem.style.backgroundImage = carImages.countdown2right;
- }
-}
- function carChangeOne(mode) {
-  if (mode === "nozc") {
+  } }
+ if (number === 1) { if (mode === "nozc") {
    carElem.style.backgroundImage = carImages.zcountdown1left;
- } else {
+  } else {
    carElem.style.backgroundImage = carImages.countdown1left;
- }
-}
- function carChangeOneRight(mode) {  
-  if (mode === "nozc") {
+  } } }
+if (side === "right") { if (number === 5) {  if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown5right;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown5right;
+  } }
+ if (number === 4) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown4right;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown4right;
+  } }
+ if (number === 3) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown3right
+  } else {
+   carElem.style.backgroundImage = carImages.countdown3right;
+  } }
+ if (number === 2) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown2right;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown2right;
+  } }
+ if (number === 1) { if (mode === "nozc") {
    carElem.style.backgroundImage = carImages.zcountdown1right;
   } else {
    carElem.style.backgroundImage = carImages.countdown1right;
- }
+  } } }
+if (side === "both") { if (number === 5) {  if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown5leftright;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown5leftright;
+  } }
+ if (number === 4) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown4leftright;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown4leftright;
+  } }
+ if (number === 3) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown3leftright;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown3leftright;
+  } }
+ if (number === 2) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown2leftright;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown2leftright;
+  } }
+ if (number === 1) { if (mode === "nozc") {
+   carElem.style.backgroundImage = carImages.zcountdown1leftright;
+  } else {
+   carElem.style.backgroundImage = carImages.countdown1leftright;
+  } } }
 }
+
  function carChangeNO() {
   carElem.style.backgroundImage = carImages.carno;
 }
@@ -327,28 +351,15 @@ $( document ).ready(function() {
   .animate({opacity: "0.99"},5000, function(){carCountDownAll(side, mode);})
 }
  function carCountDownAll(side, mode){
-  if (side === "right") {
-  carChangeFiveRight(mode);
-   car
-  .animate({opacity: "1"}, 1000, function() {carChangeFourRight(mode);})
-  .animate({opacity: "0.99"}, 1000, function() {carChangeThreeRight(mode);})
-  .animate({opacity: "1"}, 1000, function() {carChangeTwoRight(mode);})
-  .animate({opacity: "0.99"}, 1000, function() {carChangeOneRight(mode);})
-  .animate({opacity: "1"}, 1000, carChangeNO)
-  .animate({opacity: "0.99"}, 2000, carChangeNormal)
-  .animate({top: "200%", left: "20%"}, 5000);
-
-  } else {
-  carChangeFive(mode);
+  carCountdown(side, mode, 5);
   car
-  .animate({opacity: "1"}, 1000, function() {carChangeFour(mode);})
-  .animate({opacity: "0.99"}, 1000, function() {carChangeThree(mode);})
-  .animate({opacity: "1"}, 1000, function() {carChangeTwo(mode);})
-  .animate({opacity: "0.99"}, 1000,  function() {carChangeOne(mode);})
+  .animate({opacity: "1"}, 1000, function() {carCountdown(side, mode, 4);})
+  .animate({opacity: "0.99"}, 1000, function() {carCountdown(side, mode, 3);})
+  .animate({opacity: "1"}, 1000, function() {carCountdown(side, mode, 2);})
+  .animate({opacity: "0.99"}, 1000,  function() {carCountdown(side, mode, 1);})
   .animate({opacity: "1"}, 1000, carChangeNO)
   .animate({opacity: "0.99"}, 2000, carChangeNormal)
-  .animate({top: "200%", left: "20%"}, 5000);
-  }
+  .animate({top: "200%", left: "20%"}, 3000);
 }
  function showPedestrianM() {
   pedestrianMElem.style.display = "inline";
@@ -357,36 +368,33 @@ $( document ).ready(function() {
   pedestrianFElem.style.display = "inline";
 }
  function userQuery() {
-  // TODO: Open Modal Y/N. Iets van modal(function doIfYes, function doIfNo)
-  swipeLeft();
+  showPrompt();
 }
- function scenarioFour(){
+/**
+ function scenarioOne(mode) {
   showPedestrianM();
-  carApproach(userQuery);
+  carApproach(scenarioOneDelayOne, mode);
 }
- function scenarioOne() {
-  showPedestrianM();
-  carApproach(scenarioOneDelayOne);
-}
- function scenarioOneDelayOne() {
-  carChangeLeft();
-  car.animate({opacity: "0.99"} ,1500, carChangeMid).animate({opacity: "1"},1000, function(){
-   carChangeRight(); carCountDownAll("right");});
+ function scenarioOneDelayOne(mode) {
+  carChangeLeft(mode);
+  car
+   .animate({opacity: "0.99"} ,1500, function(){carChangeMid(mode);})
+   .animate({opacity: "1"},1000, function(){carChangeRight(mode); carCountDownAll("right", mode);});
   pedestrianM.animate({left: "60%"}, 4000);
 }
- function scenarioTwo() {
+ function scenarioTwo(mode) {
   showPedestrianM();
   showPedestrianF();
-  carApproach(scenarioTwoDelayOne);
+  carApproach([carChangeBoth,userQuery], mode);
 }
- function scenarioTwoDelayOne() {
-  carChangeBoth();
+ function scenarioTwoDelayOne(mode) {
+  carChangeBoth(mode);
   pedestrianM.animate({left: "60%"},4000);
   pedestrianF.animate({left: "25%"},3000);
   car
-   .animate({opacity: "0.99"},1500, carChangeMid)
-   .animate({opacity: "1"},1000, carChangeBoth)
-   .animate({opacity: "0.99"}, 1, carCountDownAll);
+   .animate({opacity: "0.99"},1500, function(){carChangeMid(mode);})
+   .animate({opacity: "1"},1000, function(){carChangeBoth(mode);})
+   .animate({opacity: "0.99"}, 1, function(){carCountDownAll("both", mode);});
 }
  function scenarioThree(mode) {
   showPedestrianM();
@@ -395,13 +403,24 @@ $( document ).ready(function() {
  function scenarioThreeDelayOne(mode) {
   carChangeLeft(mode);
   carWait(carCountDownAll, mode);
+}*/
+
+ function scenarioOne(mode) {
+  showPedestrianM();
+  carApproach([carChangeLeft,userQuery],mode);
 }
+
+ function scenarioTwo(mode) {
+ showPedestrianM(); showPedestrianF();
+ carApproach([carChangeBoth, userQuery],mode);
+}
+
  function reset() {
   carElem.style.backgroundImage = carImages.normal;
   carElem.style.width = "12%";
   carElem.style.height = "12%";
   carElem.style.top = "15%";
-  carElem.style.left = "42%";
+  carElem.style.left = "41.5%";
   carElem.style.display = "none";
 
   pedestrianMElem.style.width = "10%";
