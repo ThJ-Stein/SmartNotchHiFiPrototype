@@ -96,6 +96,27 @@
 	margin: auto;
 	overflow: hidden;
 }
+
+#swipePrompt {
+	display: none;
+	position: absolute;
+
+	border-style: solid;
+	border-radius: 15px;
+	box-shadow: 10px 10px 5px gray;
+	padding: 70px;
+	background-color: white;
+
+	top: 200px;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	z-index: 2;
+	text-align: center;
+	width: 25%;
+}
+
 </style>
 <script>
 function swipeLeft() {
@@ -115,6 +136,13 @@ function enter() {
 </script>
 </head>
 <body>
+
+<div id="swipePrompt">
+	<h3>Is it safe to cross?</h3> <br />
+	<button id="swipeLeftButton">No</button>
+	<button id="swipeRightButton">Yes</button>
+</div>
+
 <div id="SwipeModal">
 <div id="SceneModal">
 <div id="Container">
@@ -387,6 +415,14 @@ $( document ).ready(function() {
   pedestrianFElem.style.top = "67%";
   pedestrianFElem.style.left = "65%";
   pedestrianFElem.style.display = "none";
+}
+
+function showPrompt() {
+	$("#swipePrompt").fadeIn();
+}
+
+function hidePrompt() {
+	$("#swipePrompt").fadeOut();
 }
 </script>
 </body>
