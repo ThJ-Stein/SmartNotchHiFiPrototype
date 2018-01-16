@@ -189,7 +189,6 @@ function swipeLeft() {
 	reset();
 	data.yesorno = "no";
 	showRating();
-//TODO: Async GET Request
 }
 
 function swipeRight() {
@@ -199,7 +198,6 @@ function swipeRight() {
 	reset();
 	data.yesorno = "yes";
 	showRating();
-//TODO: Async GET Request
 }
 
 function enter() {
@@ -321,6 +319,10 @@ $( document ).ready(function() {
   mid: "url('../images/car front ready for pedestrian from the front.svg')",
   both: "url('../images/car front ready for pedestrian from both sides.svg')", 
   normal: "url('../images/car front.svg')",
+  midleft: "url('../images/car pedestrian front and left.svg')",
+  midright: "url('../images/carpedestrian front and right.svg')",
+  zmidleft: "url('../images/car pedestrian front and left(no zc).svg')",
+  zmidright: "url('../images/carpedestrian front and right(no zc).svg')",
   znormal: "url('../images/car front.svg')",
   countdown5left: "url('../images/car inpatient 5 left.svg')",
   countdown5right: "url('../images/car inpatient 5 right.svg')",
@@ -405,7 +407,7 @@ $( document ).ready(function() {
   showPedestrianM(); showPedestrianF();
   carApproach(function(){carChange(mode, "both");
   car
-   .animate({opacity: 0.99}, 1000, function(){ carChange(mode, "mid"); })
+   .animate({opacity: 0.99}, 1000, function(){ carChange(mode, "midleft"); })
    .animate({opacity: 1}, 1000, function(){ carChange(mode, "left"); });
   pedestrianF
    .animate({left: "20%"}, 2500, userQuery);
