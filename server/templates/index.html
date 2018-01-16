@@ -4,6 +4,11 @@
 <title>SmartNotch Prototype</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <style>
+
+.checked {
+	color: orange;
+}
+
 #Container {	
 	width: 100%;
 	height:100%;
@@ -119,6 +124,8 @@
 	overflow: hidden;
 }
 
+
+
 #swipePrompt table {
 	position: relative;
 	left: 50%;
@@ -138,6 +145,26 @@
     cursor: pointer;
 	width: 110%;
 	height: 150px;
+}
+
+#ratingPrompt {
+	position: absolute;
+
+	border-style: solid;
+	border-radius: 15px;
+	box-shadow: 10px 10px 5px gray;
+	background-color: white;
+
+	top: 200px;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	margin-top: 40px;
+	margin-bottom: -15px;
+	z-index: 3;
+	text-align: center;
+	width: 40%;
 }
 
 </style>
@@ -194,6 +221,15 @@ function sendData(myData) {
 	</table>
 </div>
 
+<div id="ratingPrompt">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<span id="s1" class="fa fa-star"></span>
+	<span id="s2" class="fa fa-star"></span>
+	<span id="s3" class="fa fa-star"></span>
+	<span id="s4" class="fa fa-star"></span>
+	<span id="s5" class="fa fa-star"></span>
+</div>
+
 <div id="SwipeModal">
 <div id="SceneModal">
 <div id="Container">
@@ -205,17 +241,23 @@ function sendData(myData) {
 </div>
 <script>
 $( document ).ready(function() {
+	$(".fa-star").click(function(obj) {
+		console.log(obj);
+		obj.target.prevAll().addClass("checked");
+		obj.target.addClass("checked");
+	});
+
   enter();
-  var options = [scenarioOne, scenarioTwo, scenarioThree]
+  var options = [scenarioOne, scenarioTwo, scenarioThree, scenarioFour, scenarioFive, scenarioSix, scenarioSeven]
   var modes = ["", "nozc"];
 
+  option = options[Math.floor(Math.random()*options.length)];
+
   data = {};
-  data.option = options[Math.floor(Math.random()*options.length)].name;
+  data.option = option.name;
   data.mode = modes[Math.floor(Math.random()*modes.length)];
 
-//TODO: Asynchronous GET Request to REST API.
-  mode = "nozc";
-  scenarioFive();
+  option();
   });
  var mode = "";
  var car = $("#Car");
@@ -321,8 +363,8 @@ $( document ).ready(function() {
   });
 }
  function scenarioFive(){
-  pedestrianM.animate({left: "-10%"},1);
-  showPedestrianM();
+  pedestrianM.animate({left: "-10%"},1); pedestrianF.animate({left: "23%"},1);
+  showPedestrianM(); showPedestrianF();
   carApproach(function(){
    carChange(mode, "left");
    car
@@ -330,12 +372,12 @@ $( document ).ready(function() {
     .animate({opacity: 1}, 1000, function(){ carChange(mode, "countdown4left");});
    pedestrianM
     .animate({left: "25%"}, 2500, userQuery);
-});
+  });
 }
 
  function scenarioSix(){
-  pedestrianM.animage({left: "-10%"},1);
-  showPedestrianM();
+  pedestrianM.animate({left: "-10%"},1); pedestrianF.animate({left: "23%"},1);
+  showPedestrianM(); showPedestrianF();
   carApproach(function(){
    carChange(mode, "left");
     car
@@ -345,8 +387,14 @@ $( document ).ready(function() {
     .animate({opacity: 1}, 1000, function(){ carChange(mode, "countdown2left"); pedestrianM.animate({left: "25%"},2500,userQuery);})
     .animate({opacity: 0.99}, 1000, function(){ carChange(mode, "countdown1left");})
     .animate({opacity: 1}, 1000, function(){ carChange(mode, "carno");});
-});
+  });
 }
+
+ function scenarioSeven(){
+  showPedestrianM(); showPedestrianF();
+  carApproach(function(){ carChange(mode, "right"); userQuery(); });
+}
+
 
  function reset() {
   carElem.style.backgroundImage = carImages.normal;
