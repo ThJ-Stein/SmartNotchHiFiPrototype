@@ -147,6 +147,8 @@ function swipeLeft() {
 		.addClass("SwipeLeftClass");
 	hidePrompt();
 	reset();
+	data.yesorno = "no";
+	sendData(data);
 //TODO: Async GET Request
 }
 
@@ -155,12 +157,24 @@ function swipeRight() {
 		.addClass("SwipeRightClass");
 	hidePrompt();
 	reset();
+	data.yesorno = "yes";
+	sendData(data);
 //TODO: Async GET Request
 }
 
 function enter() {
 	$("#SwipeModal").removeClass("SwipeLeftClass SwipeRightClass EnterClass")
 		.addClass("EnterClass");
+}
+
+function sendData(myData) {
+	$.ajax({
+		url: "/api",
+		type: "POST",
+		data: JSON.stringify(myData),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json'
+	});
 }
 </script>
 </head>
@@ -194,6 +208,11 @@ $( document ).ready(function() {
   enter();
   var options = [scenarioOne, scenarioTwo, scenarioThree]
   var modes = ["", "nozc"];
+
+  data = {};
+  data.option = options[Math.floor(Math.random()*options.length)].name;
+  data.mode = modes[Math.floor(Math.random()*modes.length)];
+
 //TODO: Asynchronous GET Request to REST API.
   mode = "nozc";
   scenarioFour();

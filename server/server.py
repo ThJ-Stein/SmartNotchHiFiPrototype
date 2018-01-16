@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sse import sse
 from PublicIP import IP
+import json
 
 app = Flask(__name__)
 app.register_blueprint(sse, url_prefix='/sse')
@@ -24,15 +25,26 @@ def serve_controller():
 	#code for serving the html page for controller
 	return render_template('controller.html')
 
-@app.route("/api", methods=["GET", "POST"])
+@app.route("/api", methods=["POST"])
 def request_api():
-	global state
 	if request.method == "POST":
-		sse.publish({"message": request.get_data()}, type="state")
+		content = request.get_json()
+		print content
+		scenario = content["mode"] + content["option"]
+		with open("data.json") as f:
+			d = json.loads(f.read());
+		if not scenario in d.keys():
+			d[scenario] = []
+		d[scenario].append([content["yesorno"]])
+
+		with open("data.json", 'w') as f:		
+			f.write(json.dumps(d))
+
+		print d
 		return "HTTP 200: successful", 200
 
 if __name__ == "__main__":
 	print IP()
 
-app.run(IP(), 80)
+app.run(IP(), 5000)
 exit()
