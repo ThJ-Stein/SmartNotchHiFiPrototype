@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, send_from_directory
-from flask_sse import sse
 from PublicIP import IP
 import json
 
