@@ -215,7 +215,7 @@ $( document ).ready(function() {
 
 //TODO: Asynchronous GET Request to REST API.
   mode = "nozc";
-  scenarioFour();
+  scenarioFive();
   });
  var mode = "";
  var car = $("#Car");
@@ -320,6 +320,34 @@ $( document ).ready(function() {
    .animate({left: "20%"}, 2500, userQuery);
   });
 }
+ function scenarioFive(){
+  pedestrianM.animate({left: "-10%"},1);
+  showPedestrianM();
+  carApproach(function(){
+   carChange(mode, "left");
+   car
+    .animate({opacity: 0.99}, 1000, function(){ carChange(mode, "countdown5left");})
+    .animate({opacity: 1}, 1000, function(){ carChange(mode, "countdown4left");});
+   pedestrianM
+    .animate({left: "25%"}, 2500, userQuery);
+});
+}
+
+ function scenarioSix(){
+  pedestrianM.animage({left: "-10%"},1);
+  showPedestrianM();
+  carApproach(function(){
+   carChange(mode, "left");
+    car
+    .animate({opacity: 0.99}, 1000, function(){ carChange(mode, "countdown5left");})
+    .animate({opacity: 1}, 1000, function(){ carChange(mode, "countdown4left");})
+    .animate({opacity: 0.99}, 1000, function(){ carChange(mode, "countdown3left");})
+    .animate({opacity: 1}, 1000, function(){ carChange(mode, "countdown2left"); pedestrianM.animate({left: "25%"},2500,userQuery);})
+    .animate({opacity: 0.99}, 1000, function(){ carChange(mode, "countdown1left");})
+    .animate({opacity: 1}, 1000, function(){ carChange(mode, "carno");});
+});
+}
+
  function reset() {
   carElem.style.backgroundImage = carImages.normal;
   carElem.style.width = "12%";
