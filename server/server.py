@@ -1,14 +1,17 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from flask_sse import sse
 from PublicIP import IP
 import json
 
 app = Flask(__name__)
-app.register_blueprint(sse, url_prefix='/sse')
 
 @app.route("/")
 def hello():
 	return render_template('index.html')
+
+@app.route('/images/<path:path>')
+def send_image(path):
+    return send_from_directory('images', path)
 
 @app.route("/smartnotch")
 def serve_smartnotch():
