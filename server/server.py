@@ -35,13 +35,13 @@ def request_api():
 			d = json.loads(f.read());
 		if not scenario in d.keys():
 			d[scenario] = []
-		d[scenario].append([content["yesorno"]])
+		d[scenario].append([content["yesorno"], content["rating"]])
 
 		with open("data.json", 'w') as f:		
 			f.write(json.dumps(d))
 
 		print d
-		return "HTTP 200: successful", 200
+		return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 if __name__ == "__main__":
 	print IP()

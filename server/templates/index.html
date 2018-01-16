@@ -9,6 +9,14 @@
 	color: orange;
 }
 
+.hoverChecked {
+	color: orange;
+}
+
+.hoverUnchecked {
+	color: black;
+}
+
 #Container {	
 	width: 100%;
 	height:100%;
@@ -148,6 +156,8 @@
 }
 
 #ratingPrompt {
+	display:none;
+
 	position: absolute;
 
 	border-style: solid;
@@ -160,11 +170,14 @@
 	left: 50%;
 	transform: translate(-50%, 0);
 
-	margin-top: 40px;
-	margin-bottom: -15px;
+	padding: 20px;
 	z-index: 3;
 	text-align: center;
-	width: 40%;
+	width: 30%;
+
+	font-size: 30px;
+}
+	
 }
 
 </style>
@@ -175,7 +188,7 @@ function swipeLeft() {
 	hidePrompt();
 	reset();
 	data.yesorno = "no";
-	sendData(data);
+	showRating();
 //TODO: Async GET Request
 }
 
@@ -185,7 +198,7 @@ function swipeRight() {
 	hidePrompt();
 	reset();
 	data.yesorno = "yes";
-	sendData(data);
+	showRating();
 //TODO: Async GET Request
 }
 
@@ -194,13 +207,29 @@ function enter() {
 		.addClass("EnterClass");
 }
 
+function onSubmit() {
+	data.rating = $(".checked").length;
+	sendData(data);
+}
+
+function showRating() {
+	$("#ratingPrompt").fadeIn('slow');
+}
+
+function hideRating() {
+	$("#ratingPrompt").fadeOut();
+}
+
 function sendData(myData) {
 	$.ajax({
 		url: "/api",
 		type: "POST",
 		data: JSON.stringify(myData),
 		contentType: 'application/json; charset=utf-8',
-		dataType: 'json'
+		dataType: 'json',
+		complete: function() {
+			location.reload();
+		}
 	});
 }
 </script>
@@ -222,12 +251,20 @@ function sendData(myData) {
 </div>
 
 <div id="ratingPrompt">
+	<h3>How safe was this?</h3>
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<div>
 	<span id="s1" class="fa fa-star"></span>
 	<span id="s2" class="fa fa-star"></span>
 	<span id="s3" class="fa fa-star"></span>
 	<span id="s4" class="fa fa-star"></span>
 	<span id="s5" class="fa fa-star"></span>
+	</div>
+
+	<br />	
+	
+	<button id="submitRating">Submit</button>
 </div>
 
 <div id="SwipeModal">
@@ -242,10 +279,22 @@ function sendData(myData) {
 <script>
 $( document ).ready(function() {
 	$(".fa-star").click(function(obj) {
-		console.log(obj);
-		obj.target.prevAll().addClass("checked");
-		obj.target.addClass("checked");
+		star = $("#"+obj.target.id);
+		star.prevAll().addClass("checked");
+		star.addClass("checked");
+		star.nextAll().removeClass("checked");
 	});
+
+	$(".fa-star").hover(function(obj) {
+		star = $("#"+obj.target.id);
+		star.prevAll().addClass("hoverChecked");
+		star.addClass("hoverChecked");
+		star.nextAll().addClass("hoverUnchecked");
+	}, function(obj) {
+		$(".fa-star").removeClass("hoverChecked hoverUnchecked");
+	});
+
+	$("#submitRating").click(onSubmit);
 
   enter();
   var options = [scenarioOne, scenarioTwo]
