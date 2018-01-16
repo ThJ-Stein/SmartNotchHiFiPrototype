@@ -177,9 +177,6 @@
 
 	font-size: 30px;
 }
-	
-}
-
 </style>
 <script>
 function swipeLeft() {
@@ -233,7 +230,6 @@ function sendData(myData) {
 </script>
 </head>
 <body>
-
 <div id="swipePrompt">
 	<h3>Is it safe to cross?</h3> <br />
 	<table>
@@ -249,7 +245,7 @@ function sendData(myData) {
 </div>
 
 <div id="ratingPrompt">
-	<h3>How safe was this?</h3>
+	<h3>How clear was this?</h3>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<div>
@@ -259,9 +255,7 @@ function sendData(myData) {
 	<span id="s4" class="fa fa-star"></span>
 	<span id="s5" class="fa fa-star"></span>
 	</div>
-
-	<br />	
-	
+	<br />		
 	<button id="submitRating">Submit</button>
 </div>
 
@@ -303,8 +297,9 @@ $( document ).ready(function() {
   data = {};
   data.option = option.name;
   data.mode = modes[Math.floor(Math.random()*modes.length)];
-
-  option();
+  console.log("" + data.option + " " + data.mode);
+ 
+  option(data.mode);
   });
  var mode = "";
  var car = $("#Car");
@@ -386,6 +381,7 @@ $( document ).ready(function() {
   showPrompt();
 }
  function carChange(mode, choice){
+  console.log("" + mode + " " + choice);
   var result = "";
   if (mode === "nozc"){ result += "z";}
   if (carImages[choice] != undefined) { result += choice; }
@@ -399,11 +395,11 @@ $( document ).ready(function() {
   showPedestrianF();
   carApproach(function(){carChange(mode,"right"); userQuery();});
 }
- function scenarioThree(){
+ function scenarioThree(mode){
   showPedestrianM(); showPedestrianF();
   carApproach(function(){carChange(mode, "both"); userQuery();});
 }
- function scenarioFour(){
+ function scenarioFour(mode){
   showPedestrianM(); showPedestrianF();
   carApproach(function(){carChange(mode, "both");
   car
@@ -413,7 +409,7 @@ $( document ).ready(function() {
    .animate({left: "20%"}, 2500, userQuery);
   });
 }
- function scenarioFive(){
+ function scenarioFive(mode){
   pedestrianM.animate({left: "-10%"},1); pedestrianF.animate({left: "23%"},1);
   showPedestrianM(); showPedestrianF();
   carApproach(function(){
@@ -426,7 +422,7 @@ $( document ).ready(function() {
   });
 }
 
- function scenarioSix(){
+ function scenarioSix(mode){
   pedestrianM.animate({left: "-10%"},1); pedestrianF.animate({left: "23%"},1);
   showPedestrianM(); showPedestrianF();
   carApproach(function(){
@@ -441,7 +437,7 @@ $( document ).ready(function() {
   });
 }
 
- function scenarioSeven(){
+ function scenarioSeven(mode){
   showPedestrianM(); showPedestrianF();
   carApproach(function(){ carChange(mode, "right"); userQuery(); });
 }
