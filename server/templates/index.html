@@ -290,13 +290,15 @@ function sendData(myData) {
 		dataType: 'json',
 		complete: function() {
 			if (randomizedScenarios.length == 0) {
-				window.location.href = "/thankyou"; //TODO
-			}
+				hideRating();
+				$("#OutroScreen").fadeIn();
+			} else {
 
-			reset();
-			hideRating();
-			enter();
-			doScenario(randomizedScenarios.pop());
+				reset();
+				hideRating();
+				enter();
+				startScenario();
+			}
 		}
 	});
 }
@@ -324,12 +326,12 @@ Thank you for participating in our examination,
 In this simulation, we wish to test the clearness of the communications from a self driven vehicle to a pedestrian.
 You will be faced with several scenarios in which you will be represented by the male character(blue).
 After each scenario you will be asked if you would have crossed in that case and afterwards you will be asked how clear that communication was on a scale of 0 to 5.
-<br><button id="introbutton" onclick="">Begin</button> </div>
+<br><button id="introbutton" onclick="onIntro()">Begin</button> </div>
 <div id="OutroScreen"> Thank you very much for your participation!
 Your answers have been collected and will be analysed at a later time.
 
 Have a nice day.
-<br><button id="outrobutton" onclick="">Again</button> </div>
+<br><button id="outrobutton" onclick="onOutro()">Again</button> </div>
 
 <div id="ratingPrompt">
 	<h3>How clear was this?</h3>
@@ -344,7 +346,7 @@ Have a nice day.
 	</div>
 	<br />		
 	<button id="submitRating">Submit and Continue</button>
-	<button id="quit">Quit</button>
+	<button id="quit" onclick="onquit()">Quit</button>
 </div>
 
 <div id="SwipeModal">
@@ -449,15 +451,42 @@ $( document ).ready(function() {
     $("#IntroScreen").delay(300).fadeIn();
   });
 
+  randomizedScenarios = [];
 
-  function getScenarios(callback)
-  $.ajax({
-    url:"/randomize",
-    success: function(data) {
-      randomizedScenarios = data;
-      callback();
+  function startScenario() {
+    if (randomizedScenarios.length == 0) {
+      getScenarios(function() {doScenario(randomizedScenarios.pop())});
+    } else {
+      doScenario(randomizedScenarios.pop());
     }
-  });
+  }
+
+  function getScenarios(callback) {
+    $.ajax({
+      url:"/randomize",
+      success: function(data) {
+        randomizedScenarios = data;
+        callback();
+      }
+    })
+  }
+
+  function onIntro() {
+    $('#IntroScreen').fadeOut(); startScenario();
+  }
+
+  function onOutro() {
+    $('#OutroScreen').fadeOut();
+    reset();
+    enter();
+    startScenario();
+  }
+
+  function onquit() {
+    randomizedScenarios = [];
+    hideRating();
+    $('#OutroScreen').fadeIn();
+  }
 
 
  function doScenario(scenarioName) {
