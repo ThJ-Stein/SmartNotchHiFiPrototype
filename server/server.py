@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory
 from PublicIP import IP
 import json
+import random
 
 app = Flask(__name__)
 
@@ -27,6 +28,12 @@ def serve_controller():
 	#code for serving the html page for controller
 	return render_template('controller.html')
 
+@app.route("/randomize", methods=["POST"])
+def request_randomize():
+        array = ["scenarioOne","scenarioTwo","scenarioThree","scenarioFour","scenarioFive","scenarioSix","scenarioSeven"]
+        array.(shuffle)
+	return 
+
 @app.route("/api", methods=["POST"])
 def request_api():
 	if request.method == "POST":
@@ -44,6 +51,7 @@ def request_api():
 
 		print d
 		return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
 
 if __name__ == "__main__":
 	print IP()
