@@ -132,7 +132,7 @@
 	overflow: hidden;
 }
 #SplashScreen {
-	display:none;
+	display: none;
 
 	position: absolute;
 
@@ -435,13 +435,17 @@ $( document ).ready(function() {
   zcountdown1mid: "url('../images/car inpatient 1 forward(no zc).svg')"};
 
   //START TEST AFTER PREPARING IMAGES
+  $("#SplashScreen").delay(300).fadeIn().delay(1000).fadeOut(200, function() {
+    $("#IntroScreen").delay(300).fadeIn();
+  });
 
+
+  function getScenarios(callback)
   $.ajax({
     url:"/randomize",
     success: function(data) {
-      console.log("success");
       randomizedScenarios = data;
-      doScenario(randomizedScenarios.pop());
+      callback();
     }
   });
 
