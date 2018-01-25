@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, jsonify
 from PublicIP import IP
 import json
 import random
@@ -28,11 +28,11 @@ def serve_controller():
 	#code for serving the html page for controller
 	return render_template('controller.html')
 
-@app.route("/randomize", methods=["POST"])
+@app.route("/randomize", methods=["GET"])
 def request_randomize():
         array = ["scenarioOne","scenarioTwo","scenarioThree","scenarioFour","scenarioFive","scenarioSix","scenarioSeven"]
-        array.(shuffle)
-	return 
+        random.shuffle(array)
+	return jsonify(array)
 
 @app.route("/api", methods=["POST"])
 def request_api():
