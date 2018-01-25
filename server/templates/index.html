@@ -278,7 +278,9 @@ function showRating() {
 }
 
 function hideRating() {
-	$("#ratingPrompt").fadeOut();
+	$("#ratingPrompt").fadeOut(200, function() {
+		$(".fa-star").removeClass("checked hoverChecked hoverUnchecked");
+	});
 }
 
 function sendData(myData) {
@@ -494,7 +496,7 @@ $( document ).ready(function() {
    data.mode = Math.random() >= 0.5 ? "" : "nozc";
    data.option = scenarioName;
    
-   var fn = window[scenarioName](data.mode);
+   window[scenarioName](data.mode);
  }
   
  function carApproach(callback) {
