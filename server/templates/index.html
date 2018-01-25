@@ -289,7 +289,14 @@ function sendData(myData) {
 		contentType: 'application/json; charset=utf-8',
 		dataType: 'json',
 		complete: function() {
-			location.reload();
+			if (randomizedScenarios.length == 0) {
+				window.location.href = "/thankyou"; //TODO
+			}
+
+			reset();
+			hideRating();
+			enter();
+			doScenario(randomizedScenarios.pop());
 		}
 	});
 }
@@ -360,16 +367,7 @@ $( document ).ready(function() {
 	$("#submitRating").click(onSubmit);
 
   enter();
-  var options = [scenarioOne, scenarioTwo, scenarioThree, scenarioFour, scenarioFive, scenarioSix, scenarioSeven]
-  var modes = ["", "nozc"];
 
-  option = options[Math.floor(Math.random()*options.length)];
-
-  data = {};
-  data.option = option.name;
-  data.mode = modes[Math.floor(Math.random()*modes.length)];
-  console.log("" + data.option + " " + data.mode); 
-//  option(data.mode);
   });
  var mode = "";
  var car = $("#Car");
@@ -435,6 +433,26 @@ $( document ).ready(function() {
   zcountdown1right: "url('../images/car inpatient 1 right(no zc).svg')",
   zcountdown1both: "url('../images/car inpatient 1 both sides(no zc).svg')",
   zcountdown1mid: "url('../images/car inpatient 1 forward(no zc).svg')"};
+
+  //START TEST AFTER PREPARING IMAGES
+
+  $.ajax({
+    url:"/randomize",
+    success: function(data) {
+      console.log("success");
+      randomizedScenarios = data;
+      doScenario(randomizedScenarios.pop());
+    }
+  });
+
+
+ function doScenario(scenarioName) {
+   data = {};
+   data.mode = Math.random() >= 0.5 ? "" : "nozc";
+   data.option = scenarioName;
+   
+   var fn = window[scenarioName](data.mode);
+ }
   
  function carApproach(callback) {
   carElem.style.display = "inline";
