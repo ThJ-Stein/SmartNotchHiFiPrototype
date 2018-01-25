@@ -154,13 +154,9 @@
 	font-size: 30px;;
 }
 
-.SplashScreenImg {
-	height: 200px;
-	width: 200px;
-	background-image: url('../images/splash.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
+#splash {
+	max-height: 100%;
+	max-width: 100%;
 }
 
 #IntroScreen {
@@ -331,7 +327,7 @@ function sendData(myData) {
 	</table>
 </div>
 
-<div id="SplashScreen"><img class="SplashScreenImg"></div>
+<div id="SplashScreen"><img id="splash" src="../images/splash.png"></div>
 <div id="IntroScreen"> 
 Welcome to the TopNotch prototype!
 Thank you for participating in our examination,
