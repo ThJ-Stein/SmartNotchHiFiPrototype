@@ -242,10 +242,10 @@ function sendData(myData) {
 	<table>
 	<tr>
 	<th>
-	<button style="background-color: red;" id="swipeLeftButton" onclick="swipeLeft()">No</button>
+	<button style="background-color: #78909c;" id="swipeLeftButton" onclick="swipeLeft()">No</button>
 	</th>
 	<th>
-	<button style="background-color: green;" id="swipeRightButton" onclick="swipeRight()">Yes</button>
+	<button style="background-color: #90a4ae;" id="swipeRightButton" onclick="swipeRight()">Yes</button>
 	</th>
 	</tr>
 	</table>
@@ -297,14 +297,6 @@ $( document ).ready(function() {
 
   enter();
 
-  
-
-  //option = options[Math.floor(Math.random()*options.length)];
-  //data.option = option.name;
-  //data.mode = modes[Math.floor(Math.random()*modes.length)];
-  //console.log("" + data.option + " " + data.mode);
- 
-  //option(data.mode);
   });
  var mode = "";
  var car = $("#Car");
@@ -417,7 +409,8 @@ $( document ).ready(function() {
   carApproach(function(){carChange(mode,"left"); userQuery();});
 }
  function scenarioTwo(mode){
-  showPedestrianF();
+  pedestrianM.animate({left: "67%", top: "65%"},10);
+  showPedestrianM();
   carApproach(function(){carChange(mode,"right"); userQuery();});
 }
  function scenarioThree(mode){
