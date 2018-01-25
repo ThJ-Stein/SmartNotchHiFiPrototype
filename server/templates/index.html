@@ -131,6 +131,72 @@
 	width: 40%;
 	overflow: hidden;
 }
+#SplashScreen {
+	display:none;
+
+	position: absolute;
+
+	border-style: solid;
+	border-radius: 15px;
+	box-shadow: 10px 10px 5px gray;
+	background-color: white;
+
+	top: 200px;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	padding: 20px;
+	z-index: 3;
+	text-align: center;
+	width: 30%;
+
+	font-size: 30px;;
+}
+#IntroScreen {
+	display:none;
+
+	position: absolute;
+
+	border-style: solid;
+	border-radius: 15px;
+	box-shadow: 10px 10px 5px gray;
+	background-color: white;
+
+	top: 200px;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	padding: 20px;
+	z-index: 3;
+	text-align: center;
+	width: 30%;
+
+	font-size: 30px;
+}
+#OutroScreen {
+	display:none;
+
+	position: absolute;
+
+	border-style: solid;
+	border-radius: 15px;
+	box-shadow: 10px 10px 5px gray;
+	background-color: white;
+
+	top: 200px;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	padding: 20px;
+	z-index: 3;
+	text-align: center;
+	width: 30%;
+
+	font-size: 30px;
+}
 
 
 
@@ -244,6 +310,10 @@ function sendData(myData) {
 	</table>
 </div>
 
+<div id="SplashScreen"> <h3>SplashScreen</h3> </div>
+<div id="IntroScreen"> <h3>IntroScreen</h3> </div>
+<div id="OutroScreen"> <h3>OutroScreen</h3> </div>
+
 <div id="ratingPrompt">
 	<h3>How clear was this?</h3>
 
@@ -256,7 +326,8 @@ function sendData(myData) {
 	<span id="s5" class="fa fa-star"></span>
 	</div>
 	<br />		
-	<button id="submitRating">Submit</button>
+	<button id="submitRating">Submit and Continue</button>
+	<button id="quit">Quit</button>
 </div>
 
 <div id="SwipeModal">
